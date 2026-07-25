@@ -786,6 +786,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        webView?.onResume()
         if (::backgroundMusicManager.isInitialized) {
             backgroundMusicManager.resumeMusic()
         }
@@ -793,6 +794,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
+        webView?.onPause()
         if (::backgroundMusicManager.isInitialized) {
             backgroundMusicManager.pauseMusic()
         }

@@ -47,7 +47,7 @@ class BackgroundMusicManager(private val context: Context) {
                             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                             .build()
                     )
-                    .setAcceptsDelayedFocusGain(true)
+                    .setAcceptsDelayedFocusGain(false)
                     .setOnAudioFocusChangeListener(focusChangeListener)
                     .build()
                 this.focusRequest = focusRequest
@@ -286,7 +286,17 @@ class BackgroundMusicManager(private val context: Context) {
                             AudioTrack.MODE_STREAM
                         )
                     }
-                    audioTrack.play()
+                    if (audioTrack.state == AudioTrack.STATE_INITIALIZED) {
+                        try {
+                            audioTrack.play()
+                        } catch (e: Exception) {
+                            Log.e("ProceduralSynth", "Error starting AudioTrack play", e)
+                            return@Thread
+                        }
+                    } else {
+                        Log.e("ProceduralSynth", "AudioTrack was not initialized properly")
+                        return@Thread
+                    }
 
                     val bufferSize = 1024
                     val buffer = ShortArray(bufferSize)
