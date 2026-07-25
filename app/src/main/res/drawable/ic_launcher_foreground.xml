@@ -5,14 +5,8 @@
     android:insetRight="8dp"
     android:insetBottom="8dp">
 
-    <layer-list>
-
-        <item>
-            <bitmap
-                android:gravity="center"
-                android:src="@drawable/cosmic_striker_icon"/>
-        </item>
-
-    </layer-list>
+    <bitmap
+        android:gravity="center"
+        android:src="@drawable/cosmic_striker"/>
 
 </inset>
