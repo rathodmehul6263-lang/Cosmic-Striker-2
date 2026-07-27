@@ -48,9 +48,9 @@ android {
     create("release") {
       val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
       storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD") ?: "cosmicstriker"
+      storePassword = System.getenv("STORE_PASSWORD") ?: "CosmicStrikerSecuredPass2026!"
       keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD") ?: "cosmicstriker"
+      keyPassword = System.getenv("KEY_PASSWORD") ?: "CosmicStrikerSecuredPass2026!"
     }
   }
 
