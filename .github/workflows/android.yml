@@ -27,8 +27,11 @@ jobs:
           gradle-version: 9.3.1
 
       - name: Decode Upload Keystore
+        shell: bash
         run: |
-          echo "${{ secrets.UPLOAD_KEYSTORE_BASE64 }}" | base64 --decode > "${{ github.workspace }}/my-upload-key.jks"
+          printf '%s' "${{ secrets.UPLOAD_KEYSTORE_BASE64 }}" | base64 -d > "${{ github.workspace }}/my-upload-key.jks"
+          ls -lh "${{ github.workspace }}/my-upload-key.jks"
+          keytool -list -keystore "${{ github.workspace }}/my-upload-key.jks" -storepass "${{ secrets.KEYSTORE_PASSWORD }}"
 
       - name: Build Release APK
         env:
