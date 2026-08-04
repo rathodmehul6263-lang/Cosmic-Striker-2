@@ -16,7 +16,12 @@ class BackgroundMusicManager(private val context: Context) {
     private var isEnabled = true
 
     private val audioManager: AudioManager by lazy {
-        context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val ctx = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            context.createAttributionContext("audio")
+        } else {
+            context
+        }
+        ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     }
 
     private var focusRequest: Any? = null // AudioFocusRequest for API 26+

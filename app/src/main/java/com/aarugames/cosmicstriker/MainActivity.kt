@@ -476,7 +476,12 @@ class MainActivity : ComponentActivity() {
 
     fun vibratePhone(durationMs: Long) {
         if (!vibrationEnabledState) return
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+        val contextToUse = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            createAttributionContext("default")
+        } else {
+            this
+        }
+        val vibrator = contextToUse.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
         if (vibrator != null && vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(VibrationEffect.createOneShot(durationMs, VibrationEffect.DEFAULT_AMPLITUDE))
